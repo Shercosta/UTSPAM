@@ -1,5 +1,7 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { useSelector, useDispatch } from "react-redux";
 import {
   SafeAreaView,
   StyleSheet,
@@ -10,6 +12,22 @@ import {
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import Task from "./Task";
+
+const initialState = {
+  value: ["item1"],
+  status: "idle",
+};
+
+export const taskSlice = createSlice({
+  name: "task",
+  initialState,
+  reducers: {
+    add: (state) => {
+      state.value.unshift("cok");
+      console.log(initialState);
+    },
+  },
+});
 
 const Note = () => {
   const [text, onChangeText] = useState(null);
@@ -63,3 +81,4 @@ const styles = StyleSheet.create({
 });
 
 export default Note;
+export const {add} = taskSlice.actions
