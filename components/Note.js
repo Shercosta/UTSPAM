@@ -1,6 +1,5 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { useSelector, useDispatch } from "react-redux";
 import {
   SafeAreaView,
@@ -12,30 +11,14 @@ import {
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import Task from "./Task";
-
-const initialState = {
-  value: ["item1"],
-  status: "idle",
-};
-
-export const taskSlice = createSlice({
-  name: "task",
-  initialState,
-  reducers: {
-    add: (state) => {
-      state.value.unshift("cok");
-      console.log(initialState);
-    },
-  },
-});
+import { add, selectCount } from "./workSlice";
 
 const Note = () => {
-  const [text, onChangeText] = useState(null);
-  const [task, setTask] = useState(null);
-  const [arry, setArry] = useState([]);
-  useEffect(() => {
-    console.log(arry);
-  }, [arry]);
+  const count = useSelector(selectCount);
+  const dispatch = useDispatch();
+  const [jobsAmount, setJobsAmount] = useState("2");
+
+  const jobsValue = [toString(jobsAmount)] || ["default"];
 
   return (
     <SafeAreaView>
@@ -81,4 +64,3 @@ const styles = StyleSheet.create({
 });
 
 export default Note;
-export const {add} = taskSlice.actions
