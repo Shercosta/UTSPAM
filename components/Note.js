@@ -18,28 +18,33 @@ const Note = () => {
   const dispatch = useDispatch();
   const [jobsAmount, setJobsAmount] = useState("2");
 
-  const jobsValue = [toString(jobsAmount)] || ["default"];
+  const [text, onChangeText] = useState(null);
+  // const [task, setTask] = useState(null);
+  // const [arry, setArry] = useState([]);
+  useEffect(() => {
+    console.log(arry);
+  }, [arry]);
+
+  const jobsValue = "fromNote";
 
   return (
     <SafeAreaView>
       <TextInput
         style={styles.input}
         // onChangeText={onChangeText}
-        value={text}
-        onChangeText={(value) => onChangeText(value)}
+        value={jobsAmount}
+        // onChangeText={(value) => onChangeText(value)}
+        onChange={(e) => setJobsAmount(e.target.value)}
         placeholder="New Task"
       />
       <Pressable
         style={styles.add}
-        onPress={() => {
-          setArry((oldArray) => [...oldArray, text]);
-          onChangeText("");
-        }}
+        onPress={() => dispatch(add(jobsValue))}
       >
         <Ionicons name="add-circle" size={40} color="#F2F7F2" />
       </Pressable>
       <View style={styles.task}>
-        {arry.map((value) => {
+        {count.map((value) => {
           return <Task items={value} />;
         })}
       </View>
